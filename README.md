@@ -27,3 +27,27 @@ Then the queues `elems` is set to `0` and the queue itself is freed.
 ### asmlab
 
 #### part a
+
+First I made the objectdump file and tried to look and the different function.
+I 
+Whenever running gdb I always ensured to set breakpoints on `explode_bomb` and the phase I wanted to defuse which specifically was `phase_4` in this case.
+
+### Logic
+
+#### part a
+
+Since the logic diagram needs a and b or b and c to be true all of the following boolean expressions are equivalent:
+
+1. a fits
+2. b does not fit
+3. c fits
+4. d fits
+
+#### part b
+
+The following entries fits:
+
+1. a fits
+2. b fits
+3. c fits
+4. d does not fit
