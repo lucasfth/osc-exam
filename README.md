@@ -127,12 +127,25 @@ inner loop body uses uses both types as described above.
 
 [x] ...  a read from an address gives you its most up-to-date value.\
 [ ] ...  data in the cache can be accessed in a coherent way.\
-[x] ...  contents of the cache is consistent with what is contained in memory.
+[ ] ...  contents of the cache is consistent with what is contained in memory.
 
 ### Memory
 
 #### part a - memory
 
-[ ] a is
-[ ] b is
-[ ] c is
+[ ] a is not correct as I do not know\
+[ ] b is not correct as I do not know\
+[x] c is correct. Also dereferencing a NULL pointer can lead to a segmentation fault (but could be defined as undefined behaviour).
+
+#### part b - memory
+
+[ ] Weird question\
+[x] Since all programs can amp to the same library it is easier to share code between processes.\
+[ ] They very well could but it is not a guarantee.\
+[x] as the processes can map to the same library and do not need to load a copy into their own virtual memory space. Thus reducing the memory usage.
+
+### I/O
+
+#### part a - i/o
+
+[ ] 
