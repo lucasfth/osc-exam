@@ -30,8 +30,8 @@ Then the queues `elems` is set to `0` and the queue itself is freed.
 
 #### part a - asmlab
 
-First I made the objectdump file and tried to look and the different function.
-I 
+First I made the objectdump file and tried to look and the different functions.
+Then I ran `gdb` and ran 
 Whenever running gdb I always ensured to set breakpoints on `explode_bomb` and the phase I wanted to defuse which specifically was `phase_4` in this case.
 
 ---
@@ -42,18 +42,97 @@ Whenever running gdb I always ensured to set breakpoints on `explode_bomb` and t
 
 Since the logic diagram needs a and b or b and c to be true all of the following boolean expressions are equivalent:
 
-1. a fits
-2. b does not fit
-3. c fits
-4. d fits
+[x] a fits\
+[ ] b does not fit\
+[x] c fits\
+[x] d fits
 
 #### part b - logic
 
 The following entries fits:
 
-1. a fits
-2. b fits
-3. c fits
-4. d does not fit
+[x] a fits\
+[x] b fits\
+[x] c fits\
+[ ] d does not fit
 
 ---
+
+### Assembly
+
+#### part a - assembly
+
+D = 1, S = 3
+| irmovq $D, %rdi | rdi = 1 |
+| --- | --- |
+| irmovq $S, %rsi | rsi = 3 |
+| irmovq two, %rax | rax = two |
+| mrmovq 0(%rax), %rax | rax = 2 |
+| main | |
+| addq %rdi, %rax | rax = 3 |
+| addq %rax, %rax | rax = 6 |
+| subq %rdi, %rsi | rsi = -2 |
+| je done | false |
+
+1. 30
+2. 44
+3. Undefined behavior
+
+#### part b - assembly
+
+| Cycle | F | D | E | M | W |
+| --- | --- | --- | --- | --- | --- |
+| 1 | [0] | | | | |
+| 2 | [1] | [0] | | | |
+| 3 | [2] | [1] | [0] | | |
+| 4 | [3] | [2] | [1] | [0] | |
+| 5 | | [3] | [2] | [1] | [0] |
+| 6 | | | [3] | [2] | [1] |
+| 7 | | | | [3] | [2] |
+| 8 | [4] | | | | [3] |
+| 9 | | [4] | | | |
+| A | | | [4] | | |
+| B | | | | [4] | |
+| C | [5] | | | | [4] |
+| D | [6] | [5] | | | |
+| E | | [6] | [5] | | |
+| F | | | [6] | [5] | |
+
+TODO: Fix the thing
+
+### Locality
+
+#### part a - locality
+
+src: has spatial locality as it is reading from the array in order\
+dst: does not use locality as when j is incremented jumps reads from index 92 and then 82 if dim start as 10 and i starts as 2.\
+i: has temporal locality as it is reading from the same index multiple times.
+
+#### part b - locality
+
+i=0 uses temporal locality as `i` has been declared just above.\
+j++ uses temporal locality as `j` either just been defined or it has just been incremented.\
+inner loop body uses uses both types as described above.
+
+### Caching
+
+#### part a - caching
+
+[x] a is\
+[ ] b is\
+[x] c is something that trashing leads to\
+[x] d is
+
+#### part b - caching
+
+[x] ...  a read from an address gives you its most up-to-date value.\
+[ ] ...  data in the cache can be accessed in a coherent way.\
+[x] ...  contents of the cache is consistent with what is contained in memory.
+
+### Memory
+
+#### part a - memory
+
+[ ] a is
+[ ] b is
+[ ] c is
