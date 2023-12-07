@@ -2,6 +2,21 @@
 
 By Lucas Hanson
 
+## Table of contents
+
+* [clab](#clab)
+* [asmlab](#asmlab)
+* [prflab](#prflab)
+* [syslab](#syslab)
+* [Logic](#logic)
+* [Assembly](#assembly)
+* [Locality](#locality)
+* [Caching](#caching)
+* [Memory](#memory)
+* [I/O](#io)
+* [Concurrency](#concurrency)
+* [Miscellaneous](#miscellaneous)
+
 ## Exam answers
 
 ### clab
