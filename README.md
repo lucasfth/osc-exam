@@ -60,7 +60,10 @@ Then the queue `elems` is set to `0` (which is not needed) and the queue itself 
 #### part a - asmlab
 
 First I made the objectdump file and tried to look and the different functions.
-Then I ran `gdb` and ran 
+I quickly identified the function `explode_bomb` and each of the different phases.
+Then I ran `gdb` and ensured to set a breakpoint on `explode_bomb` and `phase_4`.
+Then when I got to input the string for phase 4 I gave a random string initially and I could then run disas.
+
 Whenever running gdb I always ensured to set breakpoints on `explode_bomb` and the phase I wanted to defuse which specifically was `phase_4` in this case.
 
 #### part b - asmlab
