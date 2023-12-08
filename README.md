@@ -82,7 +82,21 @@ Then I gave each `rotate_thread` a struct defining the start index, `j`, and the
 They would then only operate on the specified columns but still run through all the rows.\
 Another potential optimization I could have done was to make each thread run through all the columns but specify which rows to make the operations on.
 
+This is what each of the pthread functions do (the ones I used):
+
+* `pthread_t` defines the thread or in my case a list of threads.
+* `thread_create` is used to create each of the threads and also defines which function the thread should run and which struct it should give as argument.
+* `thread_join` is used to wait for all the threads to finish.
+
 #### part b - prflab
+
+Vecorization could potentially benefit `rotate_t`.
+This could be done by rotating the upper left 4*4 pixels with vectorization and then store it at the bottom right.
+This would essentially enable rotating multiple 4*4 pixels concurrently.
+
+Rotating could potentially benefit `blend_v`.
+This could be done by dividing the work into e.g. four parts and then letting each thread blend.
+This would allow blending 16 pixels concurrently.
 
 ### syslab
 
@@ -267,11 +281,11 @@ inner loop body uses both types as described in part a.
 ### part d - miscellaneous
 
 [ ]\
-[ ]\
+[x]\
 [ ]
 
 ### part e - miscellaneous
 
 [ ]\
 [ ]\
-[ ]
+[x]
