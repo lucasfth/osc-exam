@@ -47,13 +47,13 @@ This is why `NULL` checking the allocation mentioned before is important, as it 
 
 First, it checks if the queue is `NULL` already, in which case it just returns.
 If this was not done it would create problems when starting to loop over something that does not exist.\
-Then a loop starts from the `head`.
+Then a loop starts from the `head` element.
 First, it points the `cur` pointer to the `head` element.
 Then it updates the `head` pointer to point to the next element.
 Then it can free the `cur` value and the element itself.
 This is repeated until the `head` is `NULL`.\
 If the loop was not used then only the `queue_t` would be freed, meaning that all the elements would still be filling up the memory.
-Then the queue `elems` is set to `0` (which is not needed) and the queue itself is freed.
+Then the queue `elems` is set to `0` (which is not really needed) and the queue itself is freed.
 
 ### asmlab
 
@@ -86,8 +86,8 @@ This was figured out by using `disas`, `i r` and `ni` a lot.
 
 #### part b - asmlab
 
-In phase two I first I created a txt file with my padding.
-Then after looking at asmlab.pdf page 11 I identified that some of the following function pairs should be identfied (to get the cookie popped from the stack into rdi):
+In phase two I first created a txt file with my padding.
+Then after looking at asmlab.pdf page 11, I identified that some of the following function pairs should be identified (to get the cookie popped from the stack into rdi):
 
 * 58 - 48 89 c7
 * 59 - 48 89 cf
@@ -120,7 +120,7 @@ I used my previous `my_rotate` function and put it into `rotate_thread` which wa
 Originally I created dim many threads and then gave them a single column each to rotate.
 This turned out to be extremely inefficient as it costs too much to create and join the threads.\
 I then created four threads (this is done in `my_rotate_t`) and gave them a quarter of the columns to rotate each (which will be done in `rotate_thread`).
-This turned out to be much more efficient as each thread would have one-fourth of the work to do (compared to `my_rotate`) and the cost of creating and joining the threads was not as big of a factor.
+This turned out to be much more efficient as each thread would have one-fourth of the work to do (compared to `my_rotate`), which is still a substantial amount, and the cost of creating and joining the threads was not as big of a factor.
 The way I ensured to split up the work equally was by first calculating what a fourth of dim was by doing bit shifting (as this is only calculated once it does not matter much in terms of efficiency).
 Then I gave each `rotate_thread` a struct defining the start index, `j`, and then how many rows to rotate, `limit`.
 They would then only operate on the specified columns but still run through all the rows.\
@@ -280,7 +280,7 @@ inner loop body uses both types as described in part a.
 [x] Could not find a mention\
 [ ] It does not give control from one user process to another\
 [ ] CPU Disk controller gives me data from here. Disk controller writes to main memory. Disk controller to CPU hey I am done. (so no)\
-[ ] It would either have to be disk controller over disk drive.
+[x] It would either have to be disk controller over disk drive. Well discussed with Willard and seemed like the term disk includes disk controller.
 
 #### part b - i/o
 
