@@ -94,11 +94,11 @@ Then after looking at asmlab.pdf page 11 I identified that some of the following
 * 5a - 48 89 d7
 * etc.
 
-The one I identfieid was 58 and 48 89 c7, located at `402683` and `20268f`.
-These where chosen as the instructions behind them where irrelevant.
-So now I have my padding, then the pop into rax, and last rax into rdi (as this is where instructions will be exectuted).
+The one I identified was 58 and 48 89 c7, located at `402683` and `20268f`.
+These were chosen as the instructions behind them were irrelevant.
+So now I have my padding, then the pop into rax, and the last rax into rdi (as this is where instructions will be executed).
 Then lastly I could add the address to `touch2` to ensure that I would jump to it.\
-My payload therefore ended up looking as following:
+My payload therefore ended up looking as follows:
 
 ```txt
 00 00 00 00 00 00 00 00
