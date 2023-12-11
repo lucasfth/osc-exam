@@ -61,12 +61,33 @@ Then the queue `elems` is set to `0` (which is not needed) and the queue itself 
 
 First I made the objectdump file and tried to look and the different functions.
 I quickly identified the function `explode_bomb` and each of the different phases.
-Then I ran `gdb` and ensured to set a breakpoint on `explode_bomb` and `phase_4`.
-Then when I got to input the string for phase 4 I gave a random string initially and I could then run disas.
+Then I ran `gdb` and ensured to set a breakpoint on `explode_bomb` and `phase_3`.
+Then when I got to input the string for phase 3 I gave a random string initially and I could then run disas.\
+I then went down to `__isoc99_sscanf@plt` with the `nexti`.
+When I then ran `x/10c $rsi` and `x/s $rsi` I could see that the input needed was probably two integers.
+I then started over again and gave the inputs `2` and `10`.
+This proved to be quite a lucky choice since at `0x00005555555566e9` and `0x00005555555566ec` it compares the number of values stored at $eax which was 2 and then if 1 was less or equal to that it would jump to the bomb.
+Then the two next operations check if my first value is 7 or above.
+If it is then it will jump to the bomb.
+Then on `0x0000555555556739` and `0x000055555555673d` it checks if five is greater than my first value, and if so it jumps to a bomb.
+Then I checked what was on $eax before instruction `0x000055555555673f`.
+It was 390.
+Which means that if the first value is two then the second value has to be 390.
+But due to how operations `0x0000555555556706` and `0x0000555555556709` work the second value will be another value based on the first value.\
+The possible solutions are:
 
-Whenever running gdb I always ensured to set breakpoints on `explode_bomb` and the phase I wanted to defuse which specifically was `phase_4` in this case.
+* 1 334
+* 2 390
+* 3 -553
+* 4 0
+* 5 -553
+
+This was figured out by using `disas`, `i r` and `ni` a lot.
 
 #### part b - asmlab
+
+In phase two I checked out the gadgets in r_target.
+I ended up identifying a call to 58 which pops from the top of the stack to $rax.
 
 ### prflab
 
@@ -91,12 +112,16 @@ This is what each of the pthread functions do (the ones I used):
 #### part b - prflab
 
 Vecorization could potentially benefit `rotate_t`.
-This could be done by rotating the upper left 4*4 pixels with vectorization and then store it at the bottom right.
-This would essentially enable rotating multiple 4*4 pixels concurrently.
+But due to the cost of loading the pixels into vectors, and the complexity of the rotate itself it would probably not be worth it since we already use resources on spinningg up threads.\
+It could be done by rotating the upper left 4*4 pixels with vectorization and then store it at the bottom right.
+This would essentially enable rotating multiple 4*4 pixels concurrently.\
+But if the number of threads are not made to be a number less than four it does not make sense to make it vectorized.
 
-Rotating could potentially benefit `blend_v`.
+Multithreading could potentially benefit `blend_v`.
 This could be done by dividing the work into e.g. four parts and then letting each thread blend.
-This would allow blending 16 pixels concurrently.
+This would allow blending 16 pixels concurrently.\
+But for the current image sizes it does not make sense.
+So it would only make sense if the images were much larger.
 
 ### syslab
 
@@ -113,7 +138,7 @@ My cachin, `Cache`, works by having a double linked list consisting of `Node`s w
 Furthermore a dictionary, `Table`, is also used to get instant access when trying to access a single node in the cache.\
 The way I operate with it is that I lock the cache (not the dictionary nor the nodes themselves) when setting in a new node.
 If the cache is full then the head is removed.
-Regardless I will set it in the new node (except if it is too big).\
+Regardless I will set in the new node (except if it is too big).\
 When I try to read a value I go through the dictionary to access the node (if it does not exist it just returns `NULL`).
 I then start a thread that will lock and move the accessed node to the tail.
 Then I can return the node without waiting for the cache to be rearranged.\
@@ -227,11 +252,11 @@ inner loop body uses both types as described in part a.
 
 #### part a - i/o
 
-[ ] Seems to be something regarding pipelining (SEQ+)\
-[ ] Could not find a mention\
+[x] [https://arc.net/l/quote/tpxyznil](https://arc.net/l/quote/tpxyznil) \
+[x] Could not find a mention\
 [ ] It does not give control from one user process to another\
 [ ] CPU Disk controller gives me data from here. Disk controller writes to main memory. Disk controller to CPU hey I am done. (so no)\
-[x] Yes.
+[ ] It would either have to be disk controller over disk drive.
 
 #### part b - i/o
 
@@ -267,10 +292,10 @@ inner loop body uses both types as described in part a.
 
 #### part b - miscellaneous
 
-[x] plausible if p2 does not have direct access and memory protection is in place\
+[ ] Memory protection should make ensure this does not happen\
 [x] plausible if memory protection is not in place\
-[ ] \
-[x] can also happen
+[ ] what?\
+[x] can also happen if shared memory is used
 
 ### part c - miscellaneous
 
