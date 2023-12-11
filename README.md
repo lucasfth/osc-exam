@@ -111,16 +111,17 @@ This is what each of the pthread functions do (the ones I used):
 
 #### part b - prflab
 
-Vecorization could potentially benefit `rotate_t`.
-But due to the cost of loading the pixels into vectors, and the complexity of the rotate itself it would probably not be worth it since we already use resources on spinningg up threads.\
-It could be done by rotating the upper left 4*4 pixels with vectorization and then store it at the bottom right.
+Vectorization could potentially benefit `rotate_t`.
+But due to the cost of loading the pixels into vectors, and the complexity of the rotate itself it would probably not be worth it since we already use resources on spinning up threads.\
+It could be done by rotating the upper left 4*4 pixels with vectorization and then storing it at the bottom right.
 This would essentially enable rotating multiple 4*4 pixels concurrently.\
-But if the number of threads are not made to be a number less than four it does not make sense to make it vectorized.
+But if the number of threads is not made to be a number less than four it does not make sense to make it vectorized, and the images should also be bigger.
+At this point, it would make more sense to just spin up more threads instead of making it vectorized.
 
 Multithreading could potentially benefit `blend_v`.
 This could be done by dividing the work into e.g. four parts and then letting each thread blend.
-This would allow blending 16 pixels concurrently.\
-But for the current image sizes it does not make sense.
+This would allow the blending of 16 pixels concurrently.\
+But for the current image sizes, it does not make sense.
 So it would only make sense if the images were much larger.
 
 ### syslab
