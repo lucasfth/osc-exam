@@ -26,7 +26,7 @@ By Lucas Hanson
 Since calling `malloc` with some size only tries to allocate the memory a big problem can occur later.\
 If someone was to try and dereference the pointers to head, tail, or elems they would get a segmentation fault as the memory has not been initialized yet.
 Therefore it is important that `queue_new` checks if the allocation was successful and then initialize head, tail, and elems.\
-To do this the following body is a potential solution:
+To do this the following function is a potential solution:
 
 ```c
 queue_t * queue_new(void)
